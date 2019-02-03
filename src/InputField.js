@@ -31,7 +31,10 @@ class InputField extends React.Component {
           if (fields[name] !== this.props) {
             fields[name] = this.props;
           }
-          const InputComponent = mapInputTypes[type] || Text;
+          const InputComponent = mapInputTypes[type];
+          if (!InputComponent) {
+            throw new Error(`unknown InputField type: ${type}`);
+          }
           return (
             <InputComponent
               type={type}
