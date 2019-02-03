@@ -14,6 +14,7 @@ class Text extends React.Component {
       value,
       handleChange,
       classes,
+      className,
       validationError,
       disabled
     } = this.props;
@@ -25,7 +26,7 @@ class Text extends React.Component {
         placeholder={placeholder}
         id={id}
         required={required}
-        className={classes.textField}
+        className={className || (classes && classes.textField)}
         onChange={event => handleChange(event.target.value)}
         value={value}
         error={!!validationError}
@@ -38,9 +39,10 @@ class Text extends React.Component {
 }
 
 Text.propTypes = {
-  classes: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  classes: PropTypes.object,
+  className: PropTypes.string,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   id: PropTypes.string,

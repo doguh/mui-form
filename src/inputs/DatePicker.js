@@ -13,6 +13,7 @@ class DatePickers extends React.Component {
       value,
       handleChange,
       classes,
+      className,
       validationError,
       disabled
     } = this.props;
@@ -23,7 +24,7 @@ class DatePickers extends React.Component {
         label={label}
         id={id}
         required={required}
-        className={classes.textField}
+        className={className || (classes && classes.textField)}
         onChange={event => handleChange(event.target.value)}
         value={value}
         error={!!validationError}
@@ -40,7 +41,8 @@ class DatePickers extends React.Component {
 
 DatePickers.propTypes = {
   type: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
+  className: PropTypes.string,
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   id: PropTypes.string,

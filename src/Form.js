@@ -62,7 +62,7 @@ class Form extends React.Component {
   };
 
   render() {
-    const { classes, children } = this.props;
+    const { classes, children, className } = this.props;
     return (
       <FormContext.Provider
         value={{
@@ -74,7 +74,7 @@ class Form extends React.Component {
         }}
       >
         <form
-          className={classes.form}
+          className={className || (classes && classes.form)}
           autoComplete="off"
           onSubmit={this.handleSubmit}
         >
@@ -86,8 +86,9 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-  classes: PropTypes.object.isRequired,
   children: PropTypes.array.isRequired,
+  classes: PropTypes.object,
+  className: PropTypes.string,
   value: PropTypes.object,
   error: PropTypes.object,
   onSubmit: PropTypes.func

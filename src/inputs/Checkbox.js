@@ -18,13 +18,14 @@ class Checkbox extends React.Component {
       value,
       handleChange,
       classes,
+      className,
       validationError,
       disabled
     } = this.props;
     const CheckboxComponent = type === "switch" ? Switch : MuiCheckbox;
     return (
       <FormControl
-        className={classes.formControl}
+        className={className || (classes && classes.formControl)}
         error={!!validationError}
         required={required}
         disabled={disabled}
@@ -52,8 +53,9 @@ class Checkbox extends React.Component {
 
 Checkbox.propTypes = {
   type: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
+  classes: PropTypes.object,
+  className: PropTypes.string,
   label: PropTypes.string,
   id: PropTypes.string,
   required: PropTypes.bool,

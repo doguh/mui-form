@@ -116,6 +116,10 @@ class App extends Component {
               <InputField {...field} />
             </div>
           ))}
+          <div>
+            <InputField type="date" name="date2" className={classes.date} />
+            <InputField type="time" name="time2" className={classes.date} />
+          </div>
           <Button
             variant="contained"
             size="small"

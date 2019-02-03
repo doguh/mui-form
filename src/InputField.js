@@ -28,7 +28,8 @@ class InputField extends React.Component {
       required,
       defaultValue,
       options,
-      disabled
+      disabled,
+      className
     } = this.props;
     return (
       <FormContext.Consumer>
@@ -55,6 +56,7 @@ class InputField extends React.Component {
               value={val || ""}
               validationError={errors && errors[name]}
               disabled={disabled}
+              className={className}
             />
           );
         }}
@@ -73,7 +75,8 @@ InputField.propTypes = {
   id: PropTypes.string,
   required: PropTypes.bool,
   options: PropTypes.array, // select options
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  className: PropTypes.string
 };
 
 export default InputField;

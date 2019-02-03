@@ -13,5 +13,9 @@ export default theme => ({
   select: {
     margin: theme.spacing.unit,
     minWidth: 200
+  },
+  date: {
+    margin: theme.spacing.unit,
+    width: 100
   }
 });

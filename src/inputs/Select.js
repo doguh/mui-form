@@ -14,6 +14,7 @@ class Select extends React.Component {
       value,
       handleChange,
       classes,
+      className,
       validationError,
       options,
       disabled
@@ -23,18 +24,13 @@ class Select extends React.Component {
         id={id}
         select
         label={label}
-        className={classes.select}
+        className={className || (classes && classes.select)}
         value={value}
         name={name}
         placeholder={placeholder}
         required={required}
         disabled={disabled}
         onChange={event => handleChange(event.target.value)}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu
-          }
-        }}
         error={!!validationError}
         helperText={validationError}
         margin="normal"
@@ -51,8 +47,9 @@ class Select extends React.Component {
 
 Select.propTypes = {
   options: PropTypes.array.isRequired,
-  classes: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
+  classes: PropTypes.object,
+  className: PropTypes.string,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   id: PropTypes.string,
