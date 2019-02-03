@@ -1,8 +1,5 @@
 export default theme => ({
-  container: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
+  form: {},
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
@@ -10,8 +7,5 @@ export default theme => ({
   },
   button: {
     margin: theme.spacing.unit
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit
   }
 });

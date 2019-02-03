@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import styles from "./styles";
 import FormContext from "./FormContext";
 
 const _propsValue = Symbol("value");
@@ -61,7 +59,7 @@ class Form extends React.Component {
         }}
       >
         <form
-          className={classes.container}
+          className={classes.form}
           autoComplete="off"
           onSubmit={this.handleSubmit}
         >
@@ -79,4 +77,4 @@ Form.propTypes = {
   onSubmit: PropTypes.func
 };
 
-export default withStyles(styles)(Form);
+export default Form;

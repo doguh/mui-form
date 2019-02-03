@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Button } from "@material-ui/core";
+import { Button, withStyles } from "@material-ui/core";
 import Form, { InputField } from "mui-form";
+import styles from "./styles";
 
 const fields = [
   {
@@ -39,8 +40,9 @@ const fields = [
   }
 ];
 
-export default class App extends Component {
+class App extends Component {
   render() {
+    const { classes } = this.props;
     return (
       <div>
         <Form
@@ -48,6 +50,7 @@ export default class App extends Component {
           onSubmit={value => {
             console.log("submit", value);
           }}
+          classes={classes}
         >
           {fields.map(field => (
             <div key={field.name}>
@@ -59,6 +62,7 @@ export default class App extends Component {
             size="small"
             color="primary"
             type="submit"
+            className={classes.button}
           >
             Submit
           </Button>
@@ -67,3 +71,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default withStyles(styles)(App);
