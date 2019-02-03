@@ -12,7 +12,7 @@ class Text extends React.Component {
       id,
       required,
       value,
-      onChange,
+      handleChange,
       classes,
       validationError,
       disabled
@@ -26,7 +26,7 @@ class Text extends React.Component {
         id={id}
         required={required}
         className={classes.textField}
-        onChange={onChange}
+        onChange={event => handleChange(event.target.value)}
         value={value}
         error={!!validationError}
         helperText={validationError}
@@ -46,7 +46,7 @@ Text.propTypes = {
   id: PropTypes.string,
   required: PropTypes.bool,
   validationError: PropTypes.string,
-  onChange: PropTypes.func,
+  handleChange: PropTypes.func,
   value: PropTypes.any,
   disabled: PropTypes.bool
 };

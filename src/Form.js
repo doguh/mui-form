@@ -45,8 +45,8 @@ class Form extends React.Component {
     }
   };
 
-  handleChange = name => event => {
-    const values = { ...this.state.values, [name]: event.target.value };
+  handleChange = name => newValue => {
+    const values = { ...this.state.values, [name]: newValue };
     this.setState({ values });
   };
 

@@ -57,6 +57,14 @@ const fields = [
     type: "text",
     label: "Infos",
     disabled: true
+  },
+  {
+    name: "accept",
+    type: "checkbox",
+    label: "J'accepte de me faire spamer",
+    required: true,
+    validate: value => (value ? "Faut pas accepter" : null),
+    defaultValue: true
   }
 ];
 

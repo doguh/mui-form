@@ -1,47 +1,45 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
-import MuiSelect from "@material-ui/core/Select";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import MuiCheckbox from "@material-ui/core/Checkbox";
 
-class Select extends React.Component {
+class Checkbox extends React.Component {
   render() {
     const {
       name,
       label,
-      placeholder,
       id,
       required,
       value,
       handleChange,
       classes,
       validationError,
-      options,
       disabled
     } = this.props;
+
     return (
       <FormControl
-        className={classes.select}
+        className={classes.formControl}
         error={!!validationError}
         required={required}
         disabled={disabled}
       >
-        <InputLabel>{label}</InputLabel>
-        <MuiSelect
-          id={id}
-          placeholder={placeholder}
-          value={value}
-          onChange={event => handleChange(event.target.value)}
-          name={name}
-        >
-          {options.map(({ value, label }) => (
-            <MenuItem key={value} value={value}>
-              {label}
-            </MenuItem>
-          ))}
-        </MuiSelect>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <MuiCheckbox
+                id={id}
+                name={name}
+                checked={value}
+                onChange={event => handleChange(event.target.checked)}
+              />
+            }
+            label={label}
+          />
+        </FormGroup>
         {validationError ? (
           <FormHelperText>{validationError}</FormHelperText>
         ) : null}
@@ -50,12 +48,10 @@ class Select extends React.Component {
   }
 }
 
-Select.propTypes = {
-  options: PropTypes.array.isRequired,
+Checkbox.propTypes = {
   classes: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
-  placeholder: PropTypes.string,
   id: PropTypes.string,
   required: PropTypes.bool,
   validationError: PropTypes.string,
@@ -64,4 +60,4 @@ Select.propTypes = {
   disabled: PropTypes.bool
 };
 
-export default Select;
+export default Checkbox;

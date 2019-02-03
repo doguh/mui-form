@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import FormContext from "./FormContext";
 import Text from "./inputs/Text";
 import Select from "./inputs/Select";
+import Checkbox from "./inputs/Checkbox";
 
 const mapInputTypes = {
   text: Text,
   email: Text,
   password: Text,
-  select: Select
+  select: Select,
+  checkbox: Checkbox
 };
 
 class InputField extends React.Component {
@@ -45,7 +47,7 @@ class InputField extends React.Component {
               required={required}
               classes={classes}
               options={options}
-              onChange={handleChange(this.props.name)}
+              handleChange={handleChange(this.props.name)}
               value={val || ""}
               validationError={errors && errors[name]}
               disabled={disabled}

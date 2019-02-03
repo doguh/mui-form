@@ -1,5 +1,8 @@
 export default theme => ({
   form: {},
+  formControl: {
+    margin: theme.spacing.unit
+  },
   textField: {
     margin: theme.spacing.unit,
     width: 200
