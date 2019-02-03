@@ -71,6 +71,11 @@ const fields = [
     validate: value => (value > "2020-01-01" ? "Trop tard" : null)
   },
   {
+    name: "time",
+    type: "time",
+    label: "Quelle heure est-il ?"
+  },
+  {
     name: "accept",
     type: "checkbox",
     label: "J'accepte de me faire spamer",

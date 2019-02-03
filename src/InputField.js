@@ -13,7 +13,8 @@ const mapInputTypes = {
   select: Select,
   checkbox: Checkbox,
   switch: Checkbox,
-  date: DatePicker
+  date: DatePicker,
+  time: DatePicker
 };
 
 class InputField extends React.Component {

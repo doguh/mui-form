@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 class DatePickers extends React.Component {
   render() {
     const {
+      type,
       name,
       label,
       placeholder,
@@ -18,7 +19,7 @@ class DatePickers extends React.Component {
     } = this.props;
     return (
       <TextField
-        type="date"
+        type={type}
         name={name}
         label={label}
         placeholder={placeholder}
@@ -40,6 +41,7 @@ class DatePickers extends React.Component {
 }
 
 DatePickers.propTypes = {
+  type: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
