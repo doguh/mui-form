@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import FormContext from "./FormContext";
 
-const _propsValue = Symbol("value");
-
 class Form extends React.Component {
   state = {
     values: {},
@@ -13,9 +11,22 @@ class Form extends React.Component {
   _fields = {};
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.value !== prevState[_propsValue]) {
-      return { values: { ...nextProps.value }, [_propsValue]: nextProps.value };
-    } else return null;
+    let state = null;
+    if (
+      nextProps.value !== prevState.propsValue ||
+      nextProps.error !== prevState.propsError
+    ) {
+      state = {};
+      if (nextProps.value !== prevState.propsValue) {
+        state.values = { ...nextProps.value };
+        state.propsValue = nextProps.value;
+      }
+      if (nextProps.error !== prevState.propsError) {
+        state.errors = { ...nextProps.error };
+        state.propsError = nextProps.error;
+      }
+    }
+    return state;
   }
 
   handleSubmit = event => {
@@ -78,6 +89,7 @@ Form.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.array.isRequired,
   value: PropTypes.object,
+  error: PropTypes.object,
   onSubmit: PropTypes.func
 };
 

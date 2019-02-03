@@ -79,6 +79,7 @@ class App extends Component {
             console.log("submit", value);
           }}
           classes={classes}
+          error={{ password: "Saisissez un mot de passe" }}
         >
           {fields.map(field => (
             <div key={field.name}>
