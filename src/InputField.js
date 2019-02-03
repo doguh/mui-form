@@ -1,7 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import TextField from "@material-ui/core/TextField";
 import FormContext from "./FormContext";
+import Text from "./inputs/Text";
+import Select from "./inputs/Select";
+
+const mapInputTypes = {
+  text: Text,
+  email: Text,
+  select: Select
+};
 
 class InputField extends React.Component {
   render() {
@@ -12,7 +19,8 @@ class InputField extends React.Component {
       placeholder,
       id,
       required,
-      defaultValue
+      defaultValue,
+      options
     } = this.props;
     return (
       <FormContext.Consumer>
@@ -21,20 +29,20 @@ class InputField extends React.Component {
           if (fields[name] !== this.props) {
             fields[name] = this.props;
           }
+          const InputComponent = mapInputTypes[type] || Text;
           return (
-            <TextField
+            <InputComponent
               type={type}
               name={name}
               label={label}
               placeholder={placeholder}
               id={id}
               required={required}
-              className={classes.textField}
-              margin="normal"
+              classes={classes}
+              options={options}
               onChange={handleChange(this.props.name)}
               value={val || ""}
-              error={!!(errors && errors[name])}
-              helperText={errors && errors[name]}
+              validationError={errors && errors[name]}
             />
           );
         }}
@@ -51,7 +59,8 @@ InputField.propTypes = {
   validate: PropTypes.func, // eslint-disable-line
   defaultValue: PropTypes.any,
   id: PropTypes.string,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  options: PropTypes.array
 };
 
 export default InputField;

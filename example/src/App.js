@@ -10,7 +10,8 @@ const fields = [
     label: "Nom",
     placeholder: "Saisissez un nom",
     required: true,
-    validate: value => {},
+    validate: value =>
+      value && value.length > 3 ? null : "Doit contenir au moins 3 caractères",
     defaultValue: ""
   },
   {
@@ -19,24 +20,37 @@ const fields = [
     label: "Email",
     placeholder: "Adresse mail",
     required: true,
-    validate: value => {},
     defaultValue: "test@test"
   },
   {
-    name: "lol",
-    type: "text",
-    label: "Lol",
-    placeholder: "Placeholder",
-    validate: value => {},
-    defaultValue: "Mort de rire"
+    name: "fruit",
+    type: "select",
+    label: "Fruit préféré",
+    placeholder: "C'est quoi ??",
+    options: [
+      {
+        label: <em>Aucun</em>,
+        value: ""
+      },
+      {
+        label: "Banane",
+        value: "banana"
+      },
+      {
+        label: "Pomme",
+        value: "apple"
+      }
+    ],
+    validate: value => (value !== "banana" ? "Non, banane ou rien" : null)
   },
   {
-    name: "hehe",
-    type: "text",
-    label: "Hehehe",
-    validate: value => {
-      return "Pas bon";
-    }
+    name: "password",
+    type: "password",
+    label: "Mot de passe",
+    placeholder: "Adresse mail",
+    required: true,
+    validate: value =>
+      value && value.length > 6 ? null : "Doit contenir au moins 6 caractères"
   }
 ];
 
