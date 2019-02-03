@@ -1,6 +1,6 @@
 # mui-form
 
-> 
+>
 
 [![NPM](https://img.shields.io/npm/v/mui-form.svg)](https://www.npmjs.com/package/mui-form) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -13,15 +13,42 @@ npm install --save mui-form
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
-
-import MyComponent from 'mui-form'
+import React, { Component } from "react";
+import { Button } from "@material-ui/core";
+import Form, { InputField } from "mui-form";
 
 class Example extends Component {
-  render () {
+  state = {
+    user: {
+      name: "Dupond",
+      email: "dupond@dupond"
+    }
+  };
+
+  render() {
+    const { classes } = this.props;
     return (
-      <MyComponent />
-    )
+      <Form
+        value={this.state.user}
+        onSubmit={value => {
+          console.log("submit user", value);
+          this.setState({ user: value });
+        }}
+        classes={classes}
+      >
+        <InputField type="text" name="name" label="Nom" />
+        <InputField type="email" name="email" label="Email" />
+        <Button
+          variant="contained"
+          size="small"
+          color="primary"
+          type="submit"
+          className={classes.button}
+        >
+          Submit
+        </Button>
+      </Form>
+    );
   }
 }
 ```
