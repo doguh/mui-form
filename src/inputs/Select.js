@@ -1,10 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import MuiSelect from "@material-ui/core/Select";
+import TextField from "@material-ui/core/TextField";
 
 class Select extends React.Component {
   render() {
@@ -22,30 +19,32 @@ class Select extends React.Component {
       disabled
     } = this.props;
     return (
-      <FormControl
+      <TextField
+        id={id}
+        select
+        label={label}
         className={classes.select}
-        error={!!validationError}
+        value={value}
+        name={name}
+        placeholder={placeholder}
         required={required}
         disabled={disabled}
+        onChange={event => handleChange(event.target.value)}
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu
+          }
+        }}
+        error={!!validationError}
+        helperText={validationError}
+        margin="normal"
       >
-        <InputLabel>{label}</InputLabel>
-        <MuiSelect
-          id={id}
-          placeholder={placeholder}
-          value={value}
-          onChange={event => handleChange(event.target.value)}
-          name={name}
-        >
-          {options.map(({ value, label }) => (
-            <MenuItem key={value} value={value}>
-              {label}
-            </MenuItem>
-          ))}
-        </MuiSelect>
-        {validationError ? (
-          <FormHelperText>{validationError}</FormHelperText>
-        ) : null}
-      </FormControl>
+        {options.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
     );
   }
 }
