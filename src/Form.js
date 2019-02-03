@@ -11,12 +11,11 @@ class Form extends React.Component {
   _fields = {};
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    let state = null;
     if (
       nextProps.value !== prevState.propsValue ||
       nextProps.error !== prevState.propsError
     ) {
-      state = {};
+      const state = {};
       if (nextProps.value !== prevState.propsValue) {
         state.values = { ...nextProps.value };
         state.propsValue = nextProps.value;
@@ -25,8 +24,9 @@ class Form extends React.Component {
         state.errors = { ...nextProps.error };
         state.propsError = nextProps.error;
       }
+      return state;
     }
-    return state;
+    return null;
   }
 
   handleSubmit = event => {
