@@ -8,7 +8,6 @@ class DatePickers extends React.Component {
       type,
       name,
       label,
-      placeholder,
       id,
       required,
       value,
@@ -22,7 +21,6 @@ class DatePickers extends React.Component {
         type={type}
         name={name}
         label={label}
-        placeholder={placeholder}
         id={id}
         required={required}
         className={classes.textField}
@@ -45,7 +43,6 @@ DatePickers.propTypes = {
   classes: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
-  placeholder: PropTypes.string,
   id: PropTypes.string,
   required: PropTypes.bool,
   validationError: PropTypes.string,
