@@ -4,6 +4,7 @@ import FormContext from "./FormContext";
 import Text from "./inputs/Text";
 import Select from "./inputs/Select";
 import Checkbox from "./inputs/Checkbox";
+import DatePicker from "./inputs/DatePicker";
 
 const mapInputTypes = {
   text: Text,
@@ -11,7 +12,8 @@ const mapInputTypes = {
   password: Text,
   select: Select,
   checkbox: Checkbox,
-  switch: Checkbox
+  switch: Checkbox,
+  date: DatePicker
 };
 
 class InputField extends React.Component {

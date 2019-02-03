@@ -64,6 +64,13 @@ const fields = [
     label: "Activer le super power"
   },
   {
+    name: "date",
+    type: "date",
+    label: "Date de naissance",
+    required: true,
+    validate: value => (value > "2020-01-01" ? "Trop tard" : null)
+  },
+  {
     name: "accept",
     type: "checkbox",
     label: "J'accepte de me faire spamer",
