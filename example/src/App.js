@@ -11,7 +11,7 @@ const fields = [
     placeholder: "Saisissez un nom",
     required: true,
     validate: value =>
-      value && value.length > 3 ? null : "Doit contenir au moins 3 caractères",
+      value && value.length >= 3 ? null : "Doit contenir au moins 3 caractères",
     defaultValue: ""
   },
   {
