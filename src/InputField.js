@@ -7,6 +7,7 @@ import Select from "./inputs/Select";
 const mapInputTypes = {
   text: Text,
   email: Text,
+  password: Text,
   select: Select
 };
 
