@@ -69,17 +69,30 @@ const fields = [
 ];
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: { name: "Dupond" },
+      error: { password: "Saisissez un mdp wesh" }
+    };
+  }
+
   render() {
     const { classes } = this.props;
+    const { user, error } = this.state;
     return (
       <div>
         <Form
-          value={{ name: "Dupond" }}
+          value={user}
           onSubmit={value => {
             console.log("submit", value);
+            this.setState({
+              user: value,
+              error: null
+            });
           }}
           classes={classes}
-          error={{ password: "Saisissez un mot de passe" }}
+          error={error}
         >
           {fields.map(field => (
             <div key={field.name}>
