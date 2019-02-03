@@ -6,7 +6,7 @@ const _propsValue = Symbol("value");
 
 class Form extends React.Component {
   state = {
-    values: null,
+    values: {},
     errors: null
   };
 
