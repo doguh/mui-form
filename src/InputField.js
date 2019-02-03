@@ -10,7 +10,8 @@ const mapInputTypes = {
   email: Text,
   password: Text,
   select: Select,
-  checkbox: Checkbox
+  checkbox: Checkbox,
+  switch: Checkbox
 };
 
 class InputField extends React.Component {

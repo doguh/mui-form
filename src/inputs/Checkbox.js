@@ -5,10 +5,12 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import MuiCheckbox from "@material-ui/core/Checkbox";
+import Switch from "@material-ui/core/Switch";
 
 class Checkbox extends React.Component {
   render() {
     const {
+      type,
       name,
       label,
       id,
@@ -19,7 +21,7 @@ class Checkbox extends React.Component {
       validationError,
       disabled
     } = this.props;
-
+    const CheckboxComponent = type === "switch" ? Switch : MuiCheckbox;
     return (
       <FormControl
         className={classes.formControl}
@@ -30,7 +32,7 @@ class Checkbox extends React.Component {
         <FormGroup>
           <FormControlLabel
             control={
-              <MuiCheckbox
+              <CheckboxComponent
                 id={id}
                 name={name}
                 checked={value}
@@ -49,6 +51,7 @@ class Checkbox extends React.Component {
 }
 
 Checkbox.propTypes = {
+  type: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string,

@@ -59,6 +59,11 @@ const fields = [
     disabled: true
   },
   {
+    name: "active",
+    type: "switch",
+    label: "Activer le super power"
+  },
+  {
     name: "accept",
     type: "checkbox",
     label: "J'accepte de me faire spamer",
