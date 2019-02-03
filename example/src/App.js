@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Button, withStyles } from "@material-ui/core";
+import {
+  Button,
+  withStyles,
+  FormControl,
+  InputLabel,
+  NativeSelect,
+  FormHelperText,
+  Input
+} from "@material-ui/core";
 import Form, { InputField } from "mui-form";
 import styles from "./styles";
 
@@ -89,7 +97,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: { name: "Dupond" },
+      user: { name: "Dupond", custom: "456" },
       error: { password: "Saisissez un mdp wesh" }
     };
   }
@@ -119,6 +127,60 @@ class App extends Component {
           <div>
             <InputField type="date" name="date2" className={classes.date} />
             <InputField type="time" name="time2" className={classes.date} />
+            <div>
+              <InputField
+                type="custom"
+                name="custom"
+                options={[
+                  {
+                    label: "",
+                    value: ""
+                  },
+                  {
+                    label: "123",
+                    value: "123"
+                  },
+                  {
+                    label: "456",
+                    value: "456"
+                  }
+                ]}
+                component={props => {
+                  const {
+                    value,
+                    handleChange,
+                    validationError,
+                    options
+                  } = props;
+                  return (
+                    <FormControl
+                      className={classes.formControl}
+                      error={!!validationError}
+                    >
+                      <InputLabel htmlFor="uncontrolled-native">
+                        Name
+                      </InputLabel>
+                      <NativeSelect
+                        value={value}
+                        onChange={event => handleChange(event.target.value)}
+                        input={<Input name="name" id="uncontrolled-native" />}
+                      >
+                        {options.map(({ label, value }) => (
+                          <option key={value} value={value}>
+                            {label}
+                          </option>
+                        ))}
+                      </NativeSelect>
+                      {validationError ? (
+                        <FormHelperText>{validationError}</FormHelperText>
+                      ) : null}
+                    </FormControl>
+                  );
+                }}
+                validate={value => (!value ? "Selectionne un truc" : null)}
+                required={true}
+              />
+            </div>
           </div>
           <Button
             variant="contained"

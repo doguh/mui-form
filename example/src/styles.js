@@ -1,5 +1,7 @@
 export default theme => ({
-  form: {},
+  form: {
+    margin: theme.spacing.unit
+  },
   formControl: {
     margin: theme.spacing.unit
   },

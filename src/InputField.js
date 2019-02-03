@@ -29,7 +29,8 @@ class InputField extends React.Component {
       defaultValue,
       options,
       disabled,
-      className
+      className,
+      component
     } = this.props;
     return (
       <FormContext.Consumer>
@@ -38,7 +39,7 @@ class InputField extends React.Component {
           if (fields[name] !== this.props) {
             fields[name] = this.props;
           }
-          const InputComponent = mapInputTypes[type];
+          const InputComponent = component || mapInputTypes[type];
           if (!InputComponent) {
             throw new Error(`unknown InputField type: ${type}`);
           }
@@ -76,7 +77,8 @@ InputField.propTypes = {
   required: PropTypes.bool,
   options: PropTypes.array, // select options
   disabled: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
+  component: PropTypes.any
 };
 
 export default InputField;
