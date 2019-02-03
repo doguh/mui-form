@@ -28,7 +28,11 @@ class Form extends React.Component {
         this.state.values[field.name] !== undefined
           ? this.state.values[field.name]
           : field.defaultValue;
-      if (field.validate && (values[field.name] || field.required)) {
+      if (
+        !field.disabled &&
+        field.validate &&
+        (values[field.name] || field.required)
+      ) {
         const errmsg = field.validate(values[field.name]);
         if (errmsg) {
           errors[field.name] = errmsg;

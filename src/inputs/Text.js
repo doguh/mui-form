@@ -14,7 +14,8 @@ class Text extends React.Component {
       value,
       onChange,
       classes,
-      validationError
+      validationError,
+      disabled
     } = this.props;
     return (
       <TextField
@@ -30,6 +31,7 @@ class Text extends React.Component {
         error={!!validationError}
         helperText={validationError}
         margin="normal"
+        disabled={disabled}
       />
     );
   }
@@ -45,7 +47,8 @@ Text.propTypes = {
   required: PropTypes.bool,
   validationError: PropTypes.string,
   onChange: PropTypes.func,
-  value: PropTypes.any
+  value: PropTypes.any,
+  disabled: PropTypes.bool
 };
 
 export default Text;

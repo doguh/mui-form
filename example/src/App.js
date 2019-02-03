@@ -50,7 +50,13 @@ const fields = [
     placeholder: "Adresse mail",
     required: true,
     validate: value =>
-      value && value.length > 6 ? null : "Doit contenir au moins 6 caractères"
+      value && value.length >= 6 ? null : "Doit contenir au moins 6 caractères"
+  },
+  {
+    name: "infos",
+    type: "text",
+    label: "Infos",
+    disabled: true
   }
 ];
 

@@ -18,13 +18,15 @@ class Select extends React.Component {
       onChange,
       classes,
       validationError,
-      options
+      options,
+      disabled
     } = this.props;
     return (
       <FormControl
         className={classes.select}
         error={!!validationError}
         required={required}
+        disabled={disabled}
       >
         <InputLabel>{label}</InputLabel>
         <MuiSelect
@@ -58,7 +60,8 @@ Select.propTypes = {
   required: PropTypes.bool,
   validationError: PropTypes.string,
   onChange: PropTypes.func,
-  value: PropTypes.any
+  value: PropTypes.any,
+  disabled: PropTypes.bool
 };
 
 export default Select;
