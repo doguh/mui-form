@@ -12,17 +12,17 @@ class Form extends React.Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
-      nextProps.value !== prevState.propsValue ||
-      nextProps.error !== prevState.propsError
+      nextProps.values !== prevState.propsValues ||
+      nextProps.errors !== prevState.propsErrors
     ) {
       const state = {};
-      if (nextProps.value !== prevState.propsValue) {
-        state.values = { ...nextProps.value };
-        state.propsValue = nextProps.value;
+      if (nextProps.values !== prevState.propsValues) {
+        state.values = { ...nextProps.values };
+        state.propsValues = nextProps.values;
       }
-      if (nextProps.error !== prevState.propsError) {
-        state.errors = { ...nextProps.error };
-        state.propsError = nextProps.error;
+      if (nextProps.errors !== prevState.propsErrors) {
+        state.errors = { ...nextProps.errors };
+        state.propsErrors = nextProps.errors;
       }
       return state;
     }
@@ -109,8 +109,8 @@ Form.propTypes = {
   children: PropTypes.array.isRequired,
   classes: PropTypes.object,
   className: PropTypes.string,
-  value: PropTypes.object,
-  error: PropTypes.object,
+  values: PropTypes.object,
+  errors: PropTypes.object,
   onSubmit: PropTypes.func,
   onChange: PropTypes.func
 };

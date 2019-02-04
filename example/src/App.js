@@ -12,29 +12,28 @@ class App extends Component {
         email: "dupond@dupond",
         birthday: "1990-10-09",
         lunchTime: "14:00"
-      },
-      error: { password: "Saisissez un mdp wesh" }
+      }
     };
   }
 
   render() {
     const { classes } = this.props;
-    const { user, error } = this.state;
+    const { user, errors } = this.state;
     return (
       <div>
         <Form
-          value={user}
+          values={user}
           classes={classes}
-          error={error}
-          onChange={(value, name) => {
-            console.log("change", name, value);
-            this.setState({ user: value });
+          errors={errors}
+          onChange={(values, propName) => {
+            console.log("change", propName, values);
+            this.setState({ user: values });
           }}
-          onSubmit={(value, error) => {
-            console.log("submit", value, error);
+          onSubmit={(values, errors) => {
+            console.log("submit", values, errors);
             this.setState({
-              user: value,
-              error
+              user: values,
+              errors
             });
           }}
         >
