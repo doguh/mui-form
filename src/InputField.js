@@ -81,7 +81,11 @@ InputField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  validate: PropTypes.func, // eslint-disable-line
+  // eslint-disable-next-line
+  validate: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.arrayOf(PropTypes.func)
+  ]),
   defaultValue: PropTypes.any,
   id: PropTypes.string,
   required: PropTypes.bool,

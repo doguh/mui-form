@@ -51,12 +51,15 @@ class Form extends React.Component {
         this.state.values[field.name] !== undefined
           ? this.state.values[field.name]
           : field.defaultValue;
+      // TODO maybe add some validations here if noNativeValidate is true
       if (
         !field.disabled &&
         field.validate &&
         (values[field.name] || field.required)
       ) {
-        const errmsg = field.validate(values[field.name]);
+        const errmsg = Array.isArray(field.validate)
+          ? field.validate.reduce((a, f) => a || f(values[field.name]), "")
+          : field.validate(values[field.name]);
         if (errmsg) {
           errors[field.name] = errmsg;
         }
@@ -82,7 +85,7 @@ class Form extends React.Component {
   };
 
   render() {
-    const { classes, children, className } = this.props;
+    const { classes, children, className, noNativeValidate } = this.props;
     return (
       <FormContext.Provider
         value={{
@@ -97,6 +100,7 @@ class Form extends React.Component {
           className={className || (classes && classes.form)}
           autoComplete="off"
           onSubmit={this.handleSubmit}
+          noValidate={noNativeValidate}
         >
           {children}
         </form>
@@ -112,7 +116,8 @@ Form.propTypes = {
   values: PropTypes.object,
   errors: PropTypes.object,
   onSubmit: PropTypes.func,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  noNativeValidate: PropTypes.bool
 };
 
 export default Form;
