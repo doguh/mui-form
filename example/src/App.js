@@ -72,6 +72,11 @@ const fields = [
     label: "Activer le super power"
   },
   {
+    name: "active2",
+    type: "switch",
+    label: "Activer le super mega power"
+  },
+  {
     name: "date",
     type: "date",
     label: "Date de naissance",
@@ -118,6 +123,15 @@ class App extends Component {
           }}
           classes={classes}
           error={error}
+          onChange={(value, name) => {
+            console.log("change", name, value);
+            if (name === "active2" && value.active2) {
+              value.active = false;
+            } else if (name === "active" && value.active) {
+              value.active2 = false;
+            }
+            this.setState({ user: value });
+          }}
         >
           {fields.map(field => (
             <div key={field.name}>
@@ -125,8 +139,23 @@ class App extends Component {
             </div>
           ))}
           <div>
-            <InputField type="date" name="date2" className={classes.date} />
-            <InputField type="time" name="time2" className={classes.date} />
+            {this.state.user.active2 ? (
+              <div>
+                <InputField type="text" name="superpower" />
+              </div>
+            ) : null}
+            <InputField
+              type="date"
+              name="date2"
+              className={classes.date}
+              disabled={this.state.user.active}
+            />
+            <InputField
+              type="time"
+              name="time2"
+              className={classes.date}
+              disabled={this.state.user.active}
+            />
             <div>
               <InputField
                 type="custom"

@@ -29,6 +29,18 @@ class Form extends React.Component {
     return null;
   }
 
+  _getValues() {
+    const values = {};
+    Object.keys(this._fields).forEach(key => {
+      const field = this._fields[key];
+      values[field.name] =
+        this.state.values[field.name] !== undefined
+          ? this.state.values[field.name]
+          : field.defaultValue;
+    });
+    return values;
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     const errors = {};
@@ -59,6 +71,11 @@ class Form extends React.Component {
   handleChange = name => newValue => {
     const values = { ...this.state.values, [name]: newValue };
     this.setState({ values });
+    if (this.props.onChange) {
+      const allValues = this._getValues();
+      allValues[name] = newValue;
+      this.props.onChange(allValues, name);
+    }
   };
 
   render() {
@@ -91,7 +108,8 @@ Form.propTypes = {
   className: PropTypes.string,
   value: PropTypes.object,
   error: PropTypes.object,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  onChange: PropTypes.func
 };
 
 export default Form;

@@ -18,6 +18,14 @@ const mapInputTypes = {
 };
 
 class InputField extends React.Component {
+  static contextType = FormContext;
+
+  componentWillUnmount() {
+    if (this.context && this.context.fields) {
+      delete this.context.fields[this.props.name];
+    }
+  }
+
   render() {
     const {
       type,
