@@ -10,6 +10,8 @@ const mapInputTypes = {
   text: Text,
   email: Text,
   password: Text,
+  tel: Text,
+  number: Text,
   select: Select,
   checkbox: Checkbox,
   switch: Checkbox,

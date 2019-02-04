@@ -44,6 +44,9 @@ class App extends Component {
             <InputField type="email" name="email" label="E-mail" required />
           </div>
           <div>
+            <InputField type="number" name="age" label="Age" />
+          </div>
+          <div>
             <InputField
               type="date"
               name="birthday"

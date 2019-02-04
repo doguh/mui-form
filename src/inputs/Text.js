@@ -33,6 +33,7 @@ class Text extends React.Component {
         helperText={validationError}
         margin="normal"
         disabled={disabled}
+        InputLabelProps={type === "number" ? { shrink: true } : undefined}
       />
     );
   }
