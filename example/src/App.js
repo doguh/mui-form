@@ -44,7 +44,12 @@ class App extends Component {
             <InputField type="email" name="email" label="E-mail" required />
           </div>
           <div>
-            <InputField type="number" name="age" label="Age" />
+            <InputField
+              type="number"
+              name="age"
+              label="Age"
+              placeholder="N'ai pas honte"
+            />
           </div>
           <div>
             <InputField
