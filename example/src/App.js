@@ -114,11 +114,11 @@ class App extends Component {
       <div>
         <Form
           value={user}
-          onSubmit={value => {
-            console.log("submit", value);
+          onSubmit={(value, error) => {
+            console.log("submit", value, error);
             this.setState({
               user: value,
-              error: null
+              error
             });
           }}
           classes={classes}

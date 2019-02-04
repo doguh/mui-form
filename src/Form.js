@@ -63,8 +63,11 @@ class Form extends React.Component {
       }
     });
     this.setState({ errors });
-    if (Object.keys(errors).length === 0 && this.props.onSubmit) {
-      this.props.onSubmit(values);
+    if (this.props.onSubmit) {
+      this.props.onSubmit(
+        values,
+        Object.keys(errors).length > 0 ? errors : null
+      );
     }
   };
 
