@@ -33,6 +33,7 @@ class Text extends React.Component {
         helperText={validationError}
         margin="normal"
         disabled={disabled}
+        // material-ui input[type="number"] si broken, need to always shrink
         InputLabelProps={type === "number" ? { shrink: true } : undefined}
       />
     );
