@@ -66,6 +66,9 @@ class App extends Component {
               name="lunchTime"
               label="L'heure de manger"
               required
+              validate={value =>
+                !value || value < "14:00" ? "Trop tôt !" : null
+              }
             />
           </div>
           <div>
