@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FormContext from "./FormContext";
+import findValue from "./helpers/findValue";
 
 class Form extends React.Component {
   state = {
@@ -58,7 +59,7 @@ class Form extends React.Component {
         (values[field.name] || field.required)
       ) {
         const errmsg = Array.isArray(field.validate)
-          ? field.validate.reduce((a, f) => a || f(values[field.name]), "")
+          ? findValue(field.validate, fn => fn(values[field.name]))
           : field.validate(values[field.name]);
         if (errmsg) {
           errors[field.name] = errmsg;
