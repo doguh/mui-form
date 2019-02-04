@@ -24,7 +24,7 @@ class DatePickers extends React.Component {
         label={label}
         id={id}
         required={required}
-        className={className || (classes && classes.textField)}
+        className={className || (classes && classes.datePicker)}
         onChange={event => handleChange(event.target.value)}
         value={value}
         error={!!validationError}

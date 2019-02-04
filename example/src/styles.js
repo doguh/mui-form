@@ -2,22 +2,22 @@ export default theme => ({
   form: {
     margin: theme.spacing.unit
   },
-  formControl: {
-    margin: theme.spacing.unit
-  },
   textField: {
     margin: theme.spacing.unit,
     width: 200
-  },
-  button: {
-    margin: theme.spacing.unit
   },
   select: {
     margin: theme.spacing.unit,
     minWidth: 200
   },
-  date: {
+  checkbox: {
+    margin: theme.spacing.unit
+  },
+  datePicker: {
     margin: theme.spacing.unit,
-    width: 100
+    width: 200
+  },
+  button: {
+    margin: theme.spacing.unit
   }
 });
