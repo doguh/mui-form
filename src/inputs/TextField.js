@@ -1,8 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import TextField from "@material-ui/core/TextField";
+import MuiTextField from "@material-ui/core/TextField";
 
-class Text extends React.Component {
+const shrinkOpts = { shrink: true };
+
+const mapTypesOpts = {
+  number: shrinkOpts,
+  date: shrinkOpts,
+  time: shrinkOpts
+};
+
+class TextField extends React.Component {
   render() {
     const {
       type,
@@ -19,7 +27,7 @@ class Text extends React.Component {
       disabled
     } = this.props;
     return (
-      <TextField
+      <MuiTextField
         type={type}
         name={name}
         label={label}
@@ -33,14 +41,14 @@ class Text extends React.Component {
         helperText={validationError}
         margin="normal"
         disabled={disabled}
-        // material-ui input[type="number"] si broken, need to always shrink
-        InputLabelProps={type === "number" ? { shrink: true } : undefined}
+        // some input types needs to always shrink
+        InputLabelProps={mapTypesOpts[type]}
       />
     );
   }
 }
 
-Text.propTypes = {
+TextField.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   classes: PropTypes.object,
@@ -55,4 +63,4 @@ Text.propTypes = {
   disabled: PropTypes.bool
 };
 
-export default Text;
+export default TextField;

@@ -1,22 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FormContext from "./FormContext";
-import Text from "./inputs/Text";
+import TextField from "./inputs/TextField";
 import Select from "./inputs/Select";
 import Checkbox from "./inputs/Checkbox";
-import DatePicker from "./inputs/DatePicker";
 
 const mapInputTypes = {
-  text: Text,
-  email: Text,
-  password: Text,
-  tel: Text,
-  number: Text,
   select: Select,
   checkbox: Checkbox,
-  switch: Checkbox,
-  date: DatePicker,
-  time: DatePicker
+  switch: Checkbox
 };
 
 class InputField extends React.Component {
@@ -49,10 +41,7 @@ class InputField extends React.Component {
           if (fields[name] !== this.props) {
             fields[name] = this.props;
           }
-          const InputComponent = component || mapInputTypes[type];
-          if (!InputComponent) {
-            throw new Error(`unknown InputField type: ${type}`);
-          }
+          const InputComponent = component || mapInputTypes[type] || TextField;
           return (
             <InputComponent
               type={type}
