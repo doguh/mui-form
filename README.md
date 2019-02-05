@@ -21,7 +21,8 @@ class Example extends Component {
   state = {
     user: {
       name: "Dupond",
-      email: "dupond@dupond"
+      email: "dupond@dupond",
+      active: true
     }
   };
 
@@ -34,8 +35,9 @@ class Example extends Component {
           this.setState({ user: value });
         }}
       >
-        <InputField type="text" name="name" label="Nom" />
-        <InputField type="email" name="email" label="Email" />
+        <InputField type="text" name="name" label="Username" />
+        <InputField type="email" name="email" label="Email address" />
+        <InputField type="checkbox" name="active" label="Active?" />
         <Button variant="contained" size="small" color="primary" type="submit">
           Submit
         </Button>
