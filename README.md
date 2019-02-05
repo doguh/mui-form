@@ -4,10 +4,18 @@
 
 [![NPM](https://img.shields.io/npm/v/mui-form.svg)](https://www.npmjs.com/package/mui-form) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+Simplifies (hopefully) the creation of forms with React / Material-UI.
+
 ## Install
 
 ```bash
-npm install --save mui-form
+npm install --save @doguh/mui-form
+```
+
+Make sure to install `material-ui` as it is required as a peer dependency.
+
+```bash
+npm install --save @material-ui/core
 ```
 
 ## Usage
