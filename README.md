@@ -26,7 +26,6 @@ class Example extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
       <Form
         value={this.state.user}
@@ -34,17 +33,10 @@ class Example extends Component {
           console.log("submit user", value);
           this.setState({ user: value });
         }}
-        classes={classes}
       >
         <InputField type="text" name="name" label="Nom" />
         <InputField type="email" name="email" label="Email" />
-        <Button
-          variant="contained"
-          size="small"
-          color="primary"
-          type="submit"
-          className={classes.button}
-        >
+        <Button variant="contained" size="small" color="primary" type="submit">
           Submit
         </Button>
       </Form>
