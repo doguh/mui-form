@@ -28,7 +28,7 @@ class Example extends Component {
   render() {
     return (
       <Form
-        value={this.state.user}
+        values={this.state.user}
         onSubmit={value => {
           console.log("submit user", value);
           this.setState({ user: value });
