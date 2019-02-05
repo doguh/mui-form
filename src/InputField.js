@@ -52,7 +52,7 @@ class InputField extends React.Component {
               required={required}
               classes={classes}
               options={options}
-              handleChange={handleChange(this.props.name)}
+              handleChange={handleChange(name)}
               value={val || ""}
               validationError={errors && errors[name]}
               disabled={disabled}
