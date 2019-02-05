@@ -30,10 +30,14 @@ class Form extends React.Component {
     return null;
   }
 
-  _getValues() {
+  componentWillUnmount() {
+    this._fields = null;
+  }
+
+  getValues() {
     const values = {};
     Object.keys(this._fields).forEach(key => {
-      const field = this._fields[key];
+      const field = this._fields[key].props;
       values[field.name] =
         this.state.values[field.name] !== undefined
           ? this.state.values[field.name]
@@ -47,7 +51,7 @@ class Form extends React.Component {
     const errors = {};
     const values = {};
     Object.keys(this._fields).forEach(key => {
-      const field = this._fields[key];
+      const field = this._fields[key].props;
       values[field.name] =
         this.state.values[field.name] !== undefined
           ? this.state.values[field.name]
@@ -79,7 +83,7 @@ class Form extends React.Component {
     const values = { ...this.state.values, [name]: newValue };
     this.setState({ values });
     if (this.props.onChange) {
-      const allValues = this._getValues();
+      const allValues = this.getValues();
       allValues[name] = newValue;
       this.props.onChange(allValues, name);
     }

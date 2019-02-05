@@ -15,7 +15,11 @@ class InputField extends React.Component {
   static contextType = FormContext;
 
   componentWillUnmount() {
-    if (this.context && this.context.fields) {
+    if (
+      this.context &&
+      this.context.fields &&
+      this.context.fields[this.props.name] === this
+    ) {
       delete this.context.fields[this.props.name];
     }
   }
@@ -38,8 +42,8 @@ class InputField extends React.Component {
       <FormContext.Consumer>
         {({ classes, values, errors, handleChange, fields }) => {
           const val = values[name] !== undefined ? values[name] : defaultValue;
-          if (fields[name] !== this.props) {
-            fields[name] = this.props;
+          if (fields[name] !== this) {
+            fields[name] = this;
           }
           const InputComponent = component || mapInputTypes[type] || TextField;
           return (
