@@ -24,7 +24,7 @@ class Select extends React.Component {
         id={id}
         select
         label={label}
-        className={className || (classes && classes.select)}
+        className={className || (classes && classes.inputField)}
         value={value}
         name={name}
         placeholder={placeholder}

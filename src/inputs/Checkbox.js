@@ -25,7 +25,7 @@ class Checkbox extends React.Component {
     const CheckboxComponent = type === "switch" ? Switch : MuiCheckbox;
     return (
       <FormControl
-        className={className || (classes && classes.checkbox)}
+        className={className || (classes && classes.inputField)}
         error={!!validationError}
         required={required}
         disabled={disabled}

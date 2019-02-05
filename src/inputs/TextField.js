@@ -34,7 +34,7 @@ class TextField extends React.Component {
         placeholder={placeholder}
         id={id}
         required={required}
-        className={className || (classes && classes.textField)}
+        className={className || (classes && classes.inputField)}
         onChange={event => handleChange(event.target.value)}
         value={value}
         error={!!validationError}
