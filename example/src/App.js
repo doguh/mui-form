@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, withStyles } from "@material-ui/core";
-import Form, { InputField } from "mui-form";
+import Form, { InputField, Validations } from "mui-form";
 import styles from "./styles";
 
 class App extends Component {
@@ -50,6 +50,22 @@ class App extends Component {
               label="Age"
               placeholder="N'ai pas honte"
             />
+          </div>
+          <div>
+            <InputField
+              type="tel"
+              name="number"
+              label="Better input number"
+              placeholder="Entrez un nombre"
+              validate={[
+                Validations.required("Requis !"),
+                Validations.number("Saisissez un nombre")
+              ]}
+              required
+            />
+          </div>
+          <div>
+            <InputField type="checkbox" name="active" label="Actif" required />
           </div>
           <div>
             <InputField
