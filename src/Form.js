@@ -1,104 +1,70 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FormContext from "./FormContext";
-import findValue from "./helpers/findValue";
 
 class Form extends React.Component {
-  state = {
-    values: {},
-    errors: null
-  };
-
   _fields = {};
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (
-      nextProps.values !== prevState.propsValues ||
-      nextProps.errors !== prevState.propsErrors
-    ) {
-      const state = {};
-      if (nextProps.values !== prevState.propsValues) {
-        state.values = { ...nextProps.values };
-        state.propsValues = nextProps.values;
-      }
-      if (nextProps.errors !== prevState.propsErrors) {
-        state.errors = { ...nextProps.errors };
-        state.propsErrors = nextProps.errors;
-      }
-      return state;
-    }
-    return null;
-  }
+  _registerField = field => {
+    this._fields[field.props.name] = field;
+  };
 
-  componentWillUnmount() {
-    this._fields = null;
-  }
+  _unregisterField = field => {
+    if (this._fields[field.props.name] === field) {
+      delete this._fields[field.props.name];
+    }
+  };
 
   getValues() {
     const values = {};
     Object.keys(this._fields).forEach(key => {
-      const field = this._fields[key].props;
-      values[field.name] =
-        this.state.values[field.name] !== undefined
-          ? this.state.values[field.name]
-          : field.defaultValue;
+      const field = this._fields[key];
+      values[field.props.name] = field.value;
     });
     return values;
   }
 
-  handleSubmit = event => {
-    event.preventDefault();
+  getValidationErrors() {
     const errors = {};
-    const values = {};
     Object.keys(this._fields).forEach(key => {
-      const field = this._fields[key].props;
-      values[field.name] =
-        this.state.values[field.name] !== undefined
-          ? this.state.values[field.name]
-          : field.defaultValue;
-      // TODO maybe add some validations here if noNativeValidate is true
-      if (
-        !field.disabled &&
-        field.validate &&
-        (values[field.name] || field.required)
-      ) {
-        const errmsg = Array.isArray(field.validate)
-          ? findValue(field.validate, fn => fn(values[field.name]))
-          : field.validate(values[field.name]);
-        if (errmsg) {
-          errors[field.name] = errmsg;
-        }
+      const field = this._fields[key];
+      const errmsg = field.getValidationError();
+      if (errmsg) {
+        errors[field.props.name] = errmsg;
       }
     });
-    this.setState({ errors });
+    return Object.keys(errors).length ? errors : null;
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const values = this.getValues();
+    const errors = this.getValidationErrors();
+    console.log("submit", values, errors);
     if (this.props.onSubmit) {
-      this.props.onSubmit(
-        values,
-        Object.keys(errors).length > 0 ? errors : null
-      );
+      this.props.onSubmit(values, errors);
     }
   };
 
-  handleChange = name => newValue => {
-    const values = { ...this.state.values, [name]: newValue };
-    this.setState({ values });
+  handleChange = (name, newValue) => {
     if (this.props.onChange) {
-      const allValues = this.getValues();
-      allValues[name] = newValue;
-      this.props.onChange(allValues, name);
+      const values = this.getValues();
+      this.props.onChange(values, name);
     }
   };
 
   render() {
+    console.log("render form");
+    this._fields = {};
     const { classes, children, className, noNativeValidate } = this.props;
     return (
       <FormContext.Provider
         value={{
-          values: this.state.values,
-          errors: this.state.errors,
+          values: this.props.values,
           classes,
           handleChange: this.handleChange,
-          fields: this._fields
+          register: this._registerField,
+          unregister: this._unregisterField
         }}
       >
         <form
@@ -119,7 +85,6 @@ Form.propTypes = {
   classes: PropTypes.object,
   className: PropTypes.string,
   values: PropTypes.object,
-  errors: PropTypes.object,
   onSubmit: PropTypes.func,
   onChange: PropTypes.func,
   noNativeValidate: PropTypes.bool
