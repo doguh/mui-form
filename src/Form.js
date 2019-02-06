@@ -10,7 +10,7 @@ class Form extends React.Component {
   };
 
   _unregisterField = field => {
-    if (this._fields[field.props.name] === field) {
+    if (this._fields && this._fields[field.props.name] === field) {
       delete this._fields[field.props.name];
     }
   };
