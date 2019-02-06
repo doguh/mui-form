@@ -40,7 +40,6 @@ class Form extends React.Component {
     event.preventDefault();
     const values = this.getValues();
     const errors = this.getValidationErrors();
-    console.log("submit", values, errors);
     if (this.props.onSubmit) {
       this.props.onSubmit(values, errors);
     }
@@ -56,13 +55,20 @@ class Form extends React.Component {
   render() {
     console.log("render form");
     this._fields = {};
-    const { classes, children, className, noNativeValidate } = this.props;
+    const {
+      classes,
+      children,
+      className,
+      noNativeValidate,
+      values,
+      onChange
+    } = this.props;
     return (
       <FormContext.Provider
         value={{
-          values: this.props.values,
+          values,
           classes,
-          handleChange: this.handleChange,
+          handleChange: onChange ? this.handleChange : null,
           register: this._registerField,
           unregister: this._unregisterField
         }}
@@ -77,6 +83,10 @@ class Form extends React.Component {
         </form>
       </FormContext.Provider>
     );
+  }
+
+  componentWillUnmount() {
+    this._fields = null;
   }
 }
 

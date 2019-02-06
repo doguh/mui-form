@@ -15,17 +15,10 @@ const mapInputTypes = {
 class InputField extends React.Component {
   static contextType = FormContext;
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    return null;
-  }
-
-  state = { error: null };
   _prevValues;
+  _unregister;
   value;
-
-  componentWillUnmount() {
-    // TODO unregister field
-  }
+  error;
 
   getValidationError() {
     if (
@@ -36,9 +29,9 @@ class InputField extends React.Component {
       const error = Array.isArray(this.props.validate)
         ? findValue(this.props.validate, fn => fn(this.value))
         : this.props.validate(this.value);
-      if (this.state.error !== error) {
-        this.setState({ error });
-        console.log(this.props.name, error);
+      if (this.error !== error) {
+        this.error = error;
+        this.forceUpdate();
       }
       return error;
     }
@@ -61,16 +54,15 @@ class InputField extends React.Component {
     console.log("render input field", name);
     return (
       <FormContext.Consumer>
-        {({ classes, values, errors, handleChange, register }) => {
-          let val;
+        {({ values, classes, handleChange, register, unregister }) => {
+          register(this);
+          this._unregister = unregister;
           if (this._prevValues !== values) {
-            val = values[name] !== undefined ? values[name] : defaultValue;
-          } else {
-            val = this.value;
+            // if Form's values prop has changed, invalidate this.value
+            this.value =
+              values[name] !== undefined ? values[name] : defaultValue;
           }
           this._prevValues = values;
-          this.value = val;
-          register(this);
           const InputComponent = component || mapInputTypes[type] || TextField;
           return (
             <InputComponent
@@ -82,17 +74,18 @@ class InputField extends React.Component {
               required={required}
               classes={classes}
               options={options}
-              // handleChange={handleChange(name)}
               handleChange={value => {
                 this.value = value;
                 if (this.props.onChange) {
                   this.props.onChange(value);
                 }
-                handleChange(name, value);
-                this.setState({});
+                if (handleChange) {
+                  handleChange(name, value);
+                }
+                this.forceUpdate();
               }}
-              value={val || ""}
-              validationError={this.state.error}
+              value={this.value || ""}
+              validationError={this.error}
               disabled={disabled}
               className={className}
             />
@@ -100,6 +93,15 @@ class InputField extends React.Component {
         }}
       </FormContext.Consumer>
     );
+  }
+
+  componentWillUnmount() {
+    if (this._unregister) {
+      this._unregister(this);
+    }
+    this._unregister = null;
+    this._prevValues = null;
+    this.value = null;
   }
 }
 
