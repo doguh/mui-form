@@ -54,19 +54,20 @@ class Form extends React.Component {
 
   render() {
     console.log("render form");
-    this._fields = {};
     const {
       classes,
       children,
       className,
       noNativeValidate,
       values,
+      errors,
       onChange
     } = this.props;
     return (
       <FormContext.Provider
         value={{
           values,
+          errors,
           classes,
           handleChange: onChange ? this.handleChange : null,
           register: this._registerField,
@@ -95,6 +96,7 @@ Form.propTypes = {
   classes: PropTypes.object,
   className: PropTypes.string,
   values: PropTypes.object,
+  errors: PropTypes.object,
   onSubmit: PropTypes.func,
   onChange: PropTypes.func,
   noNativeValidate: PropTypes.bool

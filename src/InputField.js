@@ -16,6 +16,7 @@ class InputField extends React.Component {
   static contextType = FormContext;
 
   _prevValues;
+  _prevErrors;
   _unregister;
   value;
   error;
@@ -54,15 +55,22 @@ class InputField extends React.Component {
     console.log("render input field", name);
     return (
       <FormContext.Consumer>
-        {({ values, classes, handleChange, register, unregister }) => {
+        {({ values, errors, classes, handleChange, register, unregister }) => {
           register(this);
           this._unregister = unregister;
           if (this._prevValues !== values) {
             // if Form's values prop has changed, invalidate this.value
+            console.log("invalidate val");
             this.value =
               values[name] !== undefined ? values[name] : defaultValue;
+            this._prevValues = values;
           }
-          this._prevValues = values;
+          if (this._prevErrors !== errors) {
+            // if Form's errors prop has changed, invalidate this.error
+            console.log("invalidate err");
+            this.error = errors[name];
+            this._prevErrors = errors;
+          }
           const InputComponent = component || mapInputTypes[type] || TextField;
           return (
             <InputComponent
