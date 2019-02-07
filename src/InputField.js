@@ -17,7 +17,7 @@ class InputField extends React.Component {
 
   _prevValues;
   _prevErrors;
-  _unregister;
+  _formFields;
   value;
   error;
 
@@ -55,9 +55,10 @@ class InputField extends React.Component {
     console.log("render input field", name);
     return (
       <FormContext.Consumer>
-        {({ values, errors, classes, handleChange, register, unregister }) => {
-          register(this);
-          this._unregister = unregister;
+        {({ values, errors, classes, handleChange, formFields }) => {
+          // register this field in the form's fields list
+          formFields[name] = this;
+          this._formFields = formFields;
           if (this._prevValues !== values) {
             // if Form's values prop has changed, invalidate this.value
             console.log("invalidate val");
@@ -104,11 +105,13 @@ class InputField extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this._unregister) {
-      this._unregister(this);
+    if (this._formFields && this._formFields[this.props.name] === this) {
+      // unregister this field from the form's fields list
+      delete this._formFields[this.props.name];
     }
-    this._unregister = null;
+    this._formFields = null;
     this._prevValues = null;
+    this._prevErrors = null;
     this.value = null;
   }
 }

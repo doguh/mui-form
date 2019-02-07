@@ -5,16 +5,6 @@ import FormContext from "./FormContext";
 class Form extends React.Component {
   _fields = {};
 
-  _registerField = field => {
-    this._fields[field.props.name] = field;
-  };
-
-  _unregisterField = field => {
-    if (this._fields && this._fields[field.props.name] === field) {
-      delete this._fields[field.props.name];
-    }
-  };
-
   getValues() {
     const values = {};
     Object.keys(this._fields).forEach(key => {
@@ -70,8 +60,7 @@ class Form extends React.Component {
           errors,
           classes,
           handleChange: onChange ? this.handleChange : null,
-          register: this._registerField,
-          unregister: this._unregisterField
+          formFields: this._fields
         }}
       >
         <form
