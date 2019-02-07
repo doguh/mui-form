@@ -43,7 +43,6 @@ class Form extends React.Component {
   };
 
   render() {
-    console.log("render form");
     const {
       classes,
       children,

@@ -52,7 +52,6 @@ class InputField extends React.Component {
       className,
       component
     } = this.props;
-    console.log("render input field", name);
     return (
       <FormContext.Consumer>
         {({ values, errors, classes, handleChange, formFields }) => {
@@ -61,14 +60,12 @@ class InputField extends React.Component {
           this._formFields = formFields;
           if (this._prevValues !== values) {
             // if Form's values prop has changed, invalidate this.value
-            console.log("invalidate val");
             this.value =
               values[name] !== undefined ? values[name] : defaultValue;
             this._prevValues = values;
           }
           if (this._prevErrors !== errors) {
             // if Form's errors prop has changed, invalidate this.error
-            console.log("invalidate err");
             this.error = errors[name];
             this._prevErrors = errors;
           }
