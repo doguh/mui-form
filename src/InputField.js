@@ -4,6 +4,7 @@ import FormContext from "./FormContext";
 import TextField from "./inputs/TextField";
 import Select from "./inputs/Select";
 import Checkbox from "./inputs/Checkbox";
+import findValue from "./helpers/findValue";
 
 const mapInputTypes = {
   select: Select,
@@ -14,13 +15,26 @@ const mapInputTypes = {
 class InputField extends React.Component {
   static contextType = FormContext;
 
-  componentWillUnmount() {
+  _prevValues;
+  _prevErrors;
+  _formFields;
+  value;
+  error;
+
+  getValidationError() {
     if (
-      this.context &&
-      this.context.fields &&
-      this.context.fields[this.props.name] === this
+      !this.props.disabled &&
+      this.props.validate &&
+      (this.value || this.props.required)
     ) {
-      delete this.context.fields[this.props.name];
+      const error = Array.isArray(this.props.validate)
+        ? findValue(this.props.validate, fn => fn(this.value))
+        : this.props.validate(this.value);
+      if (this.error !== error) {
+        this.error = error;
+        this.forceUpdate();
+      }
+      return error;
     }
   }
 
@@ -40,10 +54,20 @@ class InputField extends React.Component {
     } = this.props;
     return (
       <FormContext.Consumer>
-        {({ classes, values, errors, handleChange, fields }) => {
-          const val = values[name] !== undefined ? values[name] : defaultValue;
-          if (fields[name] !== this) {
-            fields[name] = this;
+        {({ values, errors, classes, handleChange, formFields }) => {
+          // register this field in the form's fields list
+          formFields[name] = this;
+          this._formFields = formFields;
+          if (this._prevValues !== values) {
+            // if Form's values prop has changed, invalidate this.value
+            this.value =
+              values[name] !== undefined ? values[name] : defaultValue;
+            this._prevValues = values;
+          }
+          if (this._prevErrors !== errors) {
+            // if Form's errors prop has changed, invalidate this.error
+            this.error = errors[name];
+            this._prevErrors = errors;
           }
           const InputComponent = component || mapInputTypes[type] || TextField;
           return (
@@ -56,9 +80,18 @@ class InputField extends React.Component {
               required={required}
               classes={classes}
               options={options}
-              handleChange={handleChange(name)}
-              value={val || ""}
-              validationError={errors && errors[name]}
+              handleChange={value => {
+                this.value = value;
+                if (this.props.onChange) {
+                  this.props.onChange(value);
+                }
+                if (handleChange) {
+                  handleChange(name, value);
+                }
+                this.forceUpdate();
+              }}
+              value={this.value || ""}
+              validationError={this.error}
               disabled={disabled}
               className={className}
             />
@@ -67,6 +100,17 @@ class InputField extends React.Component {
       </FormContext.Consumer>
     );
   }
+
+  componentWillUnmount() {
+    if (this._formFields && this._formFields[this.props.name] === this) {
+      // unregister this field from the form's fields list
+      delete this._formFields[this.props.name];
+    }
+    this._formFields = null;
+    this._prevValues = null;
+    this._prevErrors = null;
+    this.value = null;
+  }
 }
 
 InputField.propTypes = {
@@ -74,11 +118,11 @@ InputField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  // eslint-disable-next-line
   validate: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.arrayOf(PropTypes.func)
   ]),
+  onChange: PropTypes.func,
   defaultValue: PropTypes.any,
   id: PropTypes.string,
   required: PropTypes.bool,

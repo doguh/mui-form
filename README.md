@@ -179,6 +179,14 @@ This module exposes 2 components: `Form` and `InputField`.
    * allow usage of custom components
    */
   component={props => <MyCustomComponent {...props} />}
+  /**
+   * onChange: function
+   * called when the InputField's value is changed,
+   * it takes the new value as argument
+   */
+  onChange={value => {
+    console.log(`new value: "${value}"`);
+  }}
 />
 ```
 
